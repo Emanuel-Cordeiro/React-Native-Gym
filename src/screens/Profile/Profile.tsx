@@ -5,9 +5,12 @@ import {
   ScrollView,
   Skeleton,
   Text,
+  Toast,
   VStack,
 } from 'native-base';
 import { TouchableOpacity } from 'react-native';
+
+import * as ImagePicker from 'react-native-image-picker';
 
 import { Input } from '../../components/Input/Input';
 import { Button } from '../../components/Button/Button';
@@ -17,7 +20,30 @@ import { ScreenHeader } from '../../components/ScreenHeader/ScreenHeader';
 const PHOTO_SIZE = 33;
 
 export function Profile() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [userPhoto, setUserPhoto] = useState(
+    'https://github.com/Emanuel-Cordeiro.png',
+  );
+
+  async function handleUserPhotoSelect() {
+    setLoading(true);
+
+    try {
+      await ImagePicker.launchImageLibrary({ mediaType: 'mixed' }, response => {
+        let uri = '';
+
+        if (response?.assets) {
+          uri = response?.assets[0].uri ?? '';
+        }
+
+        return setUserPhoto(uri);
+      });
+    } catch (error) {
+      Toast.show({ title: 'Erro ao carregar imagem \n' + error });
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <VStack flex={1}>
@@ -34,13 +60,13 @@ export function Profile() {
             />
           ) : (
             <UserPhoto
-              source={{ uri: 'https://github.com/Emanuel-Cordeiro.png' }}
+              source={{ uri: userPhoto }}
               alt="Foto do usuário"
               size={PHOTO_SIZE}
             />
           )}
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleUserPhotoSelect}>
             <Text
               color={'green.500'}
               fontWeight={'bold'}
