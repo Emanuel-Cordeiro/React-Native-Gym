@@ -7,11 +7,12 @@ import {
   Text,
   VStack,
 } from 'native-base';
-import { ScreenHeader } from '../../components/ScreenHeader/ScreenHeader';
-import { UserPhoto } from '../../components/UserPhoto/UserPhoto';
 import { TouchableOpacity } from 'react-native';
+
 import { Input } from '../../components/Input/Input';
 import { Button } from '../../components/Button/Button';
+import { UserPhoto } from '../../components/UserPhoto/UserPhoto';
+import { ScreenHeader } from '../../components/ScreenHeader/ScreenHeader';
 
 const PHOTO_SIZE = 33;
 

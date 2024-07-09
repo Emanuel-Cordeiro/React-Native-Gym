@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { FlatList, Heading, HStack, Text, VStack } from 'native-base';
-import { HomeHeader } from '../../components/HomeHeader/HomeHeader';
-import { Group } from '../../components/Group/Group';
-import { ExerciseCard } from '../../components/ExerciseCard/ExerciseCard';
 import { useNavigation } from '@react-navigation/native';
+
 import { AppNavigatorRoutesProps } from '../../routes';
+
+import { Group } from '../../components/Group/Group';
+import { HomeHeader } from '../../components/HomeHeader/HomeHeader';
+import { ExerciseCard } from '../../components/ExerciseCard/ExerciseCard';
 
 export function Home() {
   const [group, setGroups] = useState([
@@ -40,6 +42,7 @@ export function Home() {
         // eslint-disable-next-line react-native/no-inline-styles
         _contentContainerStyle={{ px: 8 }}
         my={10}
+        minH={10}
         maxH={10}
         renderItem={({ item }) => (
           <Group

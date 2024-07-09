@@ -30,6 +30,7 @@ export function History() {
         )}
         px={8}
         contentContainerStyle={
+          // eslint-disable-next-line react-native/no-inline-styles
           exercises.length === 0 && { flex: 1, justifyContent: 'center' }
         }
         ListEmptyComponent={() => (

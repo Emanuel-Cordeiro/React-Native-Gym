@@ -1,14 +1,14 @@
 import React from 'react';
-import { VStack, Image, Text, Center, Heading, ScrollView } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
+import { VStack, Image, Text, Center, Heading, ScrollView } from 'native-base';
+
+import { AuthNavigatorRoutesProps } from '../../routes/Auth/Auth';
 
 import LogoSvg from '../../assets/images/logo.svg';
 import BackgroundImage from '../../assets/images/background.png';
 
 import { Input } from '../../components/Input/Input';
 import { Button } from '../../components/Button/Button';
-
-import { AuthNavigatorRoutesProps } from '../../routes/Auth/Auth';
 
 export function SignIn() {
   const navigation = useNavigation<AuthNavigatorRoutesProps>();

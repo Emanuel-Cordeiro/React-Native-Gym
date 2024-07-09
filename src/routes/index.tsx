@@ -1,9 +1,11 @@
 import React from 'react';
 import { useTheme, Box } from 'native-base';
+
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+
 import { AuthRoutes } from './Auth/Auth';
 import { AppRoutes } from './App/App';
-import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
 type AppRoutes = {
   home: undefined;

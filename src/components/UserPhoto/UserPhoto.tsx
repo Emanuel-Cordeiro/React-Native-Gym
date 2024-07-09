@@ -7,12 +7,12 @@ type Props = IImageProps & {
 export function UserPhoto({ size, ...rest }: Props) {
   return (
     <Image
+      borderColor={'gray.400'}
+      rounded={'full'}
+      borderWidth={2}
       w={size}
       h={size}
       {...rest}
-      rounded={'full'}
-      borderWidth={2}
-      borderColor={'gray.400'}
     />
   );
 }

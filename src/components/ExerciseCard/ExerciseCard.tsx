@@ -11,18 +11,18 @@ export function ExerciseCard({ name, instructions, ...rest }: Props) {
   return (
     <TouchableOpacity {...rest}>
       <HStack
-        bg={'gray.500'}
         alignItems={'center'}
+        bg={'gray.500'}
+        rounded={'md'}
         p={2}
         pr={4}
-        mb={3}
-        rounded={'md'}>
+        mb={3}>
         <Image
           source={{
             uri: 'http://conteudo.imguol.com.br/c/entretenimento/0c/2019/12/03/remada-unilateral-com-halteres-1575402100538_v2_600x600.jpg',
           }}
           alt="Remada unilateral"
-          resizeMode="center"
+          resizeMode="cover"
           rounded={'md'}
           w={16}
           h={16}
@@ -30,11 +30,11 @@ export function ExerciseCard({ name, instructions, ...rest }: Props) {
         />
 
         <VStack>
-          <Heading fontSize={'lg'} color={'white'}>
+          <Heading color={'white'} fontSize={'lg'}>
             {name}
           </Heading>
 
-          <Text fontSize={'sm'} color={'gray.200'} mt={1} numberOfLines={2}>
+          <Text color={'gray.200'} fontSize={'sm'} mt={1} numberOfLines={2}>
             {instructions}
           </Text>
         </VStack>

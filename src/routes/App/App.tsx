@@ -43,6 +43,7 @@ export function AppRoutes() {
           ),
         }}
       />
+
       <Screen
         name="history"
         component={History}
