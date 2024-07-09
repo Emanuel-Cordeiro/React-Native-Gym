@@ -31,7 +31,7 @@ export function Exercises() {
 
           <HStack alignItems={'center'}>
             <Bodysvg />
-            <Text color={'gray.100'} ml={1} textTransform={'capitalize'}>
+            <Text color={'gray.200'} ml={1} textTransform={'capitalize'}>
               Costas
             </Text>
           </HStack>
