@@ -31,13 +31,13 @@ export function Exercises() {
 
           <HStack alignItems={'center'}>
             <Bodysvg />
-            <Text color={'gray.200'} ml={1} textTransform={'capitalize'}>
+            <Text color={'gray.100'} ml={1} textTransform={'capitalize'}>
               Costas
             </Text>
           </HStack>
         </HStack>
       </VStack>
-
+      {/* teste */}
       <VStack p={8}>
         <Image
           w={'full'}
@@ -50,6 +50,13 @@ export function Exercises() {
         />
 
         <Box>
+          <HStack>
+            <Seriessvg />
+            <Text color={'gray.200'} ml={2}>
+              3 séries
+            </Text>
+          </HStack>
+
           <HStack>
             <Seriessvg />
             <Text color={'gray.200'} ml={2}>
