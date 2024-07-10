@@ -85,6 +85,7 @@ export function Profile() {
             color={'gray.200'}
             fontSize={'md'}
             mb={2}
+            fontFamily={'heading'}
             alignSelf={'flex-start'}
             mt={12}>
             Alterar senha

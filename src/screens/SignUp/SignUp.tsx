@@ -1,4 +1,8 @@
 import React from 'react';
+import * as yup from 'yup';
+import { useNavigation } from '@react-navigation/native';
+import { Controller, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { VStack, Image, Text, Center, Heading, ScrollView } from 'native-base';
 
 import LogoSvg from '../../assets/images/logo.svg';
@@ -6,20 +10,45 @@ import BackgroundImage from '../../assets/images/background.png';
 
 import { Input } from '../../components/Input/Input';
 import { Button } from '../../components/Button/Button';
-import { useNavigation } from '@react-navigation/native';
+
 import { AuthNavigatorRoutesProps } from '../../routes/Auth/Auth';
-import { Controller, useForm } from 'react-hook-form';
+
+type FormDataProps = {
+  name: string;
+  email: string;
+  password: string;
+  password_confirm: string;
+};
+
+const signUpSchema = yup.object({
+  name: yup.string().required('Informe o nome.'),
+  email: yup.string().required('Informe o e-mail.').email('E-mail inválido.'),
+  password: yup
+    .string()
+    .required('Informe a senha.')
+    .min(6, 'A senha deve ser de ao menos 6 dígitos'),
+  password_confirm: yup
+    .string()
+    .required('Confirme a senha.')
+    .oneOf([yup.ref('password')], 'As senhas devem ser iguais.'),
+});
 
 export function SignUp() {
   const navigation = useNavigation<AuthNavigatorRoutesProps>();
 
-  const { control, handleSubmit } = useForm();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormDataProps>({
+    resolver: yupResolver(signUpSchema),
+  });
 
   function handleReturnSignIn() {
     navigation.navigate('signIn');
   }
 
-  function handleSignUp(data: any) {
+  function handleSignUp(data: FormDataProps) {
     console.log(data);
   }
 
@@ -58,7 +87,12 @@ export function SignUp() {
             name="name"
             control={control}
             render={({ field: { value, onChange } }) => (
-              <Input placeholder="Nome" onChangeText={onChange} value={value} />
+              <Input
+                placeholder="Nome"
+                onChangeText={onChange}
+                value={value}
+                errorMessage={errors.name?.message}
+              />
             )}
           />
 
@@ -72,6 +106,7 @@ export function SignUp() {
                 placeholder="E-mail"
                 keyboardType="email-address"
                 autoCapitalize="none"
+                errorMessage={errors.email?.message}
               />
             )}
           />
@@ -85,6 +120,7 @@ export function SignUp() {
                 value={value}
                 placeholder="Senha"
                 secureTextEntry
+                errorMessage={errors.password?.message}
               />
             )}
           />
@@ -100,6 +136,7 @@ export function SignUp() {
                 secureTextEntry
                 onSubmitEditing={handleSubmit(handleSignUp)}
                 returnKeyType="send"
+                errorMessage={errors.password_confirm?.message}
               />
             )}
           />
@@ -113,7 +150,7 @@ export function SignUp() {
         <Button
           title={'Voltar para o login'}
           variant={'outline'}
-          mt={24}
+          mt={12}
           onPress={handleReturnSignIn}
         />
       </VStack>
