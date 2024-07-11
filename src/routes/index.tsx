@@ -6,6 +6,7 @@ import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
 import { AuthRoutes } from './Auth/Auth';
 import { AppRoutes } from './App/App';
+import { useAuth } from '../hooks/useAuth';
 
 type AppRoutes = {
   home: undefined;
@@ -18,6 +19,10 @@ export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>;
 
 export function Routes() {
   const { colors } = useTheme();
+  const { user } = useAuth();
+
+  console.log(user);
+
   const theme = DefaultTheme;
 
   theme.colors.background = colors.gray['700'];
