@@ -3,7 +3,18 @@ import * as yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { VStack, Image, Text, Center, Heading, ScrollView } from 'native-base';
+import {
+  VStack,
+  Image,
+  Text,
+  Center,
+  Heading,
+  ScrollView,
+  useToast,
+} from 'native-base';
+
+import { api } from '../../services/api';
+import { AppError } from '../../utils/AppError';
 
 import LogoSvg from '../../assets/images/logo.svg';
 import BackgroundImage from '../../assets/images/background.png';
@@ -35,6 +46,7 @@ const signUpSchema = yup.object({
 
 export function SignUp() {
   const navigation = useNavigation<AuthNavigatorRoutesProps>();
+  const toast = useToast();
 
   const {
     control,
@@ -48,8 +60,31 @@ export function SignUp() {
     navigation.navigate('signIn');
   }
 
-  function handleSignUp(data: FormDataProps) {
-    console.log(data);
+  async function handleSignUp(data: FormDataProps) {
+    const body = JSON.stringify({
+      name: data.name,
+      email: data.email,
+      password: data.password,
+    });
+
+    let response;
+
+    try {
+      response = await api.post('/users', body);
+    } catch (error) {
+      const isAppError = error instanceof AppError;
+
+      const title = isAppError
+        ? error.message
+        : 'Não foi possível continuar. Tente novamente.';
+      toast.show({
+        title,
+        bgColor: 'red.500',
+        placement: 'top',
+      });
+    }
+
+    console.log(response);
   }
 
   return (
