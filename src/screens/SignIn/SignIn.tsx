@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
 import { useNavigation } from '@react-navigation/native';
-import { VStack, Image, Text, Center, Heading, ScrollView } from 'native-base';
+import {
+  VStack,
+  Image,
+  Text,
+  Center,
+  Heading,
+  ScrollView,
+  useToast,
+} from 'native-base';
 
 import { AuthNavigatorRoutesProps } from '../../routes/Auth/Auth';
+
+import { useAuth } from '../../hooks/useAuth';
+
+import { AppError } from '../../utils/AppError';
 
 import LogoSvg from '../../assets/images/logo.svg';
 import BackgroundImage from '../../assets/images/background.png';
@@ -24,6 +36,10 @@ const signInSchema = yup.object({
 });
 
 export function SignIn() {
+  const { signIn } = useAuth();
+  const toast = useToast();
+  const [isLoading, setIsLoading] = useState(false);
+
   const navigation = useNavigation<AuthNavigatorRoutesProps>();
 
   const {
@@ -38,8 +54,26 @@ export function SignIn() {
     navigation.navigate('signUp');
   }
 
-  function handleSignIn(data: FormDataSignIn) {
-    console.log(data);
+  async function handleSignIn(data: FormDataSignIn) {
+    try {
+      setIsLoading(true);
+
+      await signIn(data.email, data.password);
+    } catch (error) {
+      const isAppError = error instanceof AppError;
+
+      const title = isAppError
+        ? error.message
+        : 'Não foi possível entrar agora. Tente novamente.';
+
+      setIsLoading(false);
+
+      toast.show({
+        title,
+        placement: 'top',
+        bgColor: 'red.500',
+      });
+    }
   }
 
   return (
@@ -102,7 +136,11 @@ export function SignIn() {
             )}
           />
 
-          <Button title={'Acessar'} onPress={handleSubmit(handleSignIn)} />
+          <Button
+            isLoading={isLoading}
+            title={'Acessar'}
+            onPress={handleSubmit(handleSignIn)}
+          />
         </Center>
 
         <Center mt={24}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
 import { Controller, useForm } from 'react-hook-form';
@@ -23,6 +23,7 @@ import { Input } from '../../components/Input/Input';
 import { Button } from '../../components/Button/Button';
 
 import { AuthNavigatorRoutesProps } from '../../routes/Auth/Auth';
+import { useAuth } from '../../hooks/useAuth';
 
 type FormDataProps = {
   name: string;
@@ -45,8 +46,10 @@ const signUpSchema = yup.object({
 });
 
 export function SignUp() {
-  const navigation = useNavigation<AuthNavigatorRoutesProps>();
+  const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
+  const { signIn } = useAuth();
+  const navigation = useNavigation<AuthNavigatorRoutesProps>();
 
   const {
     control,
@@ -67,10 +70,12 @@ export function SignUp() {
       password: data.password,
     });
 
-    let response;
-
     try {
-      response = await api.post('/users', body);
+      setIsLoading(true);
+      console.log(body);
+      await api.post('/users', body);
+
+      await signIn(data.email, data.password);
     } catch (error) {
       const isAppError = error instanceof AppError;
 
@@ -82,9 +87,9 @@ export function SignUp() {
         bgColor: 'red.500',
         placement: 'top',
       });
+    } finally {
+      setIsLoading(false);
     }
-
-    console.log(response);
   }
 
   return (
@@ -179,6 +184,7 @@ export function SignUp() {
           <Button
             title={'Criar e acessar'}
             onPress={handleSubmit(handleSignUp)}
+            isLoading={isLoading}
           />
         </Center>
 
