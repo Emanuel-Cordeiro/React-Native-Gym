@@ -1,17 +1,18 @@
 import React from 'react';
 import { useTheme, Box } from 'native-base';
 
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 
-import { AuthRoutes } from './Auth/Auth';
 import { AppRoutes } from './App/App';
+import { AuthRoutes } from './Auth/Auth';
+
 import { useAuth } from '../hooks/useAuth';
 import { Loading } from '../components/Loading/Loading';
 
 type AppRoutes = {
   home: undefined;
-  exercises: undefined;
+  exercises: { exerciseId: string };
   profile: undefined;
   history: undefined;
 };

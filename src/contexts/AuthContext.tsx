@@ -1,8 +1,5 @@
-import React, { ReactNode, useEffect, useState } from 'react';
-import { createContext } from 'react';
+import React, { ReactNode, useEffect, useState, createContext } from 'react';
 
-import { api } from '../services/api';
-import { UserDTO } from '../dto/UserDTO';
 import {
   storageUserGet,
   storageUserRemove,
@@ -13,6 +10,8 @@ import {
   storageAuthTokenRemove,
   storageAuthTokenSave,
 } from '../storage/storageAuthToken';
+import { api } from '../services/api';
+import { UserDTO } from '../dto/UserDTO';
 
 export type AuthContextDataProps = {
   user: UserDTO;
@@ -42,6 +41,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
   async function storageUserAndTokenSave(userData: UserDTO, token: string) {
     try {
       setLoadingUserStorageData(true);
+
       await storageUserSave(userData);
       await storageAuthTokenSave(token);
     } catch (error) {
@@ -57,6 +57,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
       if (data.user && data.token) {
         await storageUserAndTokenSave(data.user, data.token);
+
         userAndTokenUpdate(data.user, data.token);
       }
     } catch (error) {

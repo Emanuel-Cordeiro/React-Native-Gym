@@ -9,7 +9,7 @@ import {
   VStack,
 } from 'native-base';
 import { TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import Bodysvg from '../../assets/images/body.svg';
 import SeriesSvg from '../../assets/images/series.svg';
@@ -19,8 +19,15 @@ import { AppNavigatorRoutesProps } from '../../routes';
 
 import { Button } from '../../components/Button/Button';
 
+type RouteParamsProps = {
+  exerciseId: string;
+};
+
 export function Exercises() {
+  const route = useRoute();
   const navigation = useNavigation<AppNavigatorRoutesProps>();
+
+  const { exerciseId } = route.params as RouteParamsProps;
 
   function handleGoBack() {
     navigation.navigate('home');
