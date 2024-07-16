@@ -1,7 +1,8 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Heading, HStack, Text, VStack } from 'native-base';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons/faRightFromBracket';
 
 import { useAuth } from '../../hooks/useAuth';
 
@@ -30,8 +31,8 @@ export function HomeHeader() {
         </Heading>
       </VStack>
 
-      <TouchableOpacity onPress={signOut} style={{ backgroundColor: 'gray' }}>
-        <Text>...</Text>
+      <TouchableOpacity onPress={signOut}>
+        <FontAwesomeIcon icon={faRightFromBracket} size={30} color="#C4C4CC" />
       </TouchableOpacity>
     </HStack>
   );

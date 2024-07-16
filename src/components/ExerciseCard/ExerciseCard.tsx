@@ -1,6 +1,9 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
-import { Heading, HStack, Icon, Image, Text, VStack } from 'native-base';
+import { Heading, HStack, Image, Text, VStack } from 'native-base';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight';
 
 import { api } from '../../services/api';
 
@@ -32,8 +35,13 @@ export function ExerciseCard({ data, ...rest }: Props) {
           mr={4}
         />
 
-        <VStack>
-          <Heading color={'white'} fontSize={'lg'}>
+        <VStack flex={1}>
+          <Heading
+            numberOfLines={1}
+            w={64}
+            color={'white'}
+            fontSize={'lg'}
+            fontFamily={'heading'}>
             {data.name}
           </Heading>
 
@@ -42,7 +50,9 @@ export function ExerciseCard({ data, ...rest }: Props) {
           </Text>
         </VStack>
 
-        {/* <Icon as={Entypo} name="chevron-thin-right" /> */}
+        <TouchableOpacity style={{ flex: 1, alignItems: 'flex-end' }}>
+          <FontAwesomeIcon icon={faChevronRight} color="#C4C4CC" />
+        </TouchableOpacity>
       </HStack>
     </TouchableOpacity>
   );

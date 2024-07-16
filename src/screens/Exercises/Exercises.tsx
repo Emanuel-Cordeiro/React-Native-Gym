@@ -11,6 +11,8 @@ import {
 } from 'native-base';
 import { TouchableOpacity } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 import Bodysvg from '../../assets/images/body.svg';
 import SeriesSvg from '../../assets/images/series.svg';
@@ -98,15 +100,15 @@ export function Exercises() {
   return (
     <VStack flex={1}>
       <VStack px={8} bg={'gray.600'} pt={12}>
-        <TouchableOpacity onPress={handleGoBack}>
-          <Text color={'green.500'}>.....</Text>
-        </TouchableOpacity>
-
         <HStack
           justifyContent={'space-between'}
           mt={4}
           mb={8}
           alignItems={'center'}>
+          <TouchableOpacity onPress={handleGoBack}>
+            <FontAwesomeIcon icon={faChevronLeft} color="#00B37E" />
+          </TouchableOpacity>
+
           <Heading
             color={'gray.100'}
             fontSize={'lg'}
