@@ -86,7 +86,6 @@ api.registerInterceptTokenManager = singOut => {
 
               resolve(api(originalRequestConfig));
             } catch (error: any) {
-              console.log(error);
               failedQueued.forEach(request => {
                 request.onFailure(error);
               });
