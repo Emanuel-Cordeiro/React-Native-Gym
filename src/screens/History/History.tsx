@@ -3,21 +3,24 @@ import React, { useCallback, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { Heading, SectionList, Text, useToast, VStack } from 'native-base';
 
-import { ScreenHeader } from '../../components/ScreenHeader/ScreenHeader';
-import { HistoryCard } from '../../components/HistoryCard/HistoryCard';
-import { AppError } from '../../utils/AppError';
 import { api } from '../../services/api';
-import { Loading } from '../../components/Loading/Loading';
+import { AppError } from '../../utils/AppError';
 import { HistoryByDayDTO } from '../../dto/HistoryByDayDTO';
+
+import { Loading } from '../../components/Loading/Loading';
+import { HistoryCard } from '../../components/HistoryCard/HistoryCard';
+import { ScreenHeader } from '../../components/ScreenHeader/ScreenHeader';
 
 export function History() {
   const toast = useToast();
+
   const [isLoading, setIsLoading] = useState(true);
   const [exercises, setExercises] = useState<HistoryByDayDTO[]>([]);
 
   async function fetchHistory() {
     try {
       setIsLoading(true);
+
       const response = await api.get('/history');
 
       setExercises(response.data);
@@ -52,11 +55,11 @@ export function History() {
           renderItem={({ item }) => <HistoryCard data={item} />}
           renderSectionHeader={({ section }) => (
             <Heading
-              color="gray.200"
+              fontFamily={'heading'}
               fontSize="md"
+              color="gray.200"
               mt={10}
-              mb={3}
-              fontFamily={'heading'}>
+              mb={3}>
               {section.title}
             </Heading>
           )}

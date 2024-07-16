@@ -1,5 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
+import { TouchableOpacity } from 'react-native';
+import { Controller, useForm } from 'react-hook-form';
+import * as ImagePicker from 'react-native-image-picker';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import {
   Center,
   Heading,
@@ -10,21 +15,15 @@ import {
   useToast,
   VStack,
 } from 'native-base';
-import { TouchableOpacity } from 'react-native';
-import { Controller, useForm } from 'react-hook-form';
 
-import * as ImagePicker from 'react-native-image-picker';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-
+import { api } from '../../services/api';
 import { useAuth } from '../../hooks/useAuth';
+import { AppError } from '../../utils/AppError';
 
 import { Input } from '../../components/Input/Input';
 import { Button } from '../../components/Button/Button';
 import { UserPhoto } from '../../components/UserPhoto/UserPhoto';
 import { ScreenHeader } from '../../components/ScreenHeader/ScreenHeader';
-import { AppError } from '../../utils/AppError';
-import { api } from '../../services/api';
 
 const PHOTO_SIZE = 33;
 
@@ -49,7 +48,7 @@ const profileSchema = yup.object({
     .transform(value => (value ? value : null))
     .oneOf([yup.ref('password'), null], 'A confirmação de senha não confere.')
     .when('password', {
-      is: (Field: any) => Field,
+      is: true,
       then: yup
         .string()
         .nullable()

@@ -16,14 +16,14 @@ export function Input({ errorMessage = null, isInvalid, ...rest }: Props) {
     <FormControl isInvalid={invalid} mb={4}>
       <NativeBaseInput
         placeholderTextColor={'gray.300'}
+        borderWidth={0}
         fontFamily={'body'}
-        bg={'gray.700'}
+        isInvalid={invalid}
         fontSize={'md'}
         color={'white'}
-        borderWidth={0}
-        isInvalid={invalid}
-        h={14}
+        bg={'gray.700'}
         px={4}
+        h={14}
         _invalid={{
           borderWidth: 1,
           borderColor: 'red.500',

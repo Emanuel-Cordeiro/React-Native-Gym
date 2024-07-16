@@ -1,6 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { ReactNode, useEffect, useState, createContext } from 'react';
 
+import { api } from '../services/api';
+import { UserDTO } from '../dto/UserDTO';
+
 import {
   storageUserGet,
   storageUserRemove,
@@ -11,14 +14,12 @@ import {
   storageAuthTokenRemove,
   storageAuthTokenSave,
 } from '../storage/storageAuthToken';
-import { api } from '../services/api';
-import { UserDTO } from '../dto/UserDTO';
 
 export type AuthContextDataProps = {
   user: UserDTO;
-  signIn: (email: string, password: string) => Promise<void>;
-  signOut: () => Promise<void>;
   isLoadingUserStorageData: boolean;
+  signOut: () => Promise<void>;
+  signIn: (email: string, password: string) => Promise<void>;
   updateUserProfile: (userUpdated: UserDTO) => Promise<void>;
 };
 
@@ -47,6 +48,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
   ) {
     try {
       setLoadingUserStorageData(true);
+
       await storageUserSave(userData);
       await storageAuthTokenSave({ token, refresh_token });
     } catch (error) {
@@ -79,6 +81,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     try {
       setLoadingUserStorageData(true);
       setUser({} as UserDTO);
+
       await storageUserRemove();
       await storageAuthTokenRemove();
     } catch (error) {
@@ -91,6 +94,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
   async function updateUserProfile(userUpdated: UserDTO) {
     try {
       setUser(userUpdated);
+
       await storageUserSave(userUpdated);
     } catch (error) {
       throw error;
@@ -101,8 +105,8 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     try {
       setLoadingUserStorageData(true);
 
-      const userLogged = await storageUserGet();
       const { token } = await storageAuthTokenGet();
+      const userLogged = await storageUserGet();
 
       if (token && userLogged) {
         userAndTokenUpdate(userLogged, token);

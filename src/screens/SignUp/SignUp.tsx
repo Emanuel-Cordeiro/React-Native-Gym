@@ -14,16 +14,15 @@ import {
 } from 'native-base';
 
 import { api } from '../../services/api';
+import { useAuth } from '../../hooks/useAuth';
 import { AppError } from '../../utils/AppError';
+import { AuthNavigatorRoutesProps } from '../../routes/Auth/Auth';
 
 import LogoSvg from '../../assets/images/logo.svg';
 import BackgroundImage from '../../assets/images/background.png';
 
 import { Input } from '../../components/Input/Input';
 import { Button } from '../../components/Button/Button';
-
-import { AuthNavigatorRoutesProps } from '../../routes/Auth/Auth';
-import { useAuth } from '../../hooks/useAuth';
 
 type FormDataProps = {
   name: string;
@@ -46,9 +45,9 @@ const signUpSchema = yup.object({
 });
 
 export function SignUp() {
-  const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   const { signIn } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation<AuthNavigatorRoutesProps>();
 
   const {
@@ -99,10 +98,10 @@ export function SignUp() {
       showsHorizontalScrollIndicator={false}>
       <VStack flex={1} px={10} pb={16}>
         <Image
-          source={BackgroundImage}
           defaultSource={BackgroundImage}
           resizeMode="contain"
           position={'absolute'}
+          source={BackgroundImage}
           alt="Imagem de fundo de pessoas fazendo bicicleta na academia"
         />
 
@@ -116,10 +115,10 @@ export function SignUp() {
 
         <Center>
           <Heading
-            color={'gray.100'}
+            fontFamily={'heading'}
             fontSize={'xl'}
-            mb={6}
-            fontFamily={'heading'}>
+            color={'gray.100'}
+            mb={6}>
             Crie sua conta
           </Heading>
 
@@ -128,10 +127,10 @@ export function SignUp() {
             control={control}
             render={({ field: { value, onChange } }) => (
               <Input
-                placeholder="Nome"
                 onChangeText={onChange}
-                value={value}
                 errorMessage={errors.name?.message}
+                placeholder="Nome"
+                value={value}
               />
             )}
           />
@@ -141,12 +140,12 @@ export function SignUp() {
             control={control}
             render={({ field: { value, onChange } }) => (
               <Input
-                onChangeText={onChange}
-                value={value}
-                placeholder="E-mail"
-                keyboardType="email-address"
                 autoCapitalize="none"
+                onChangeText={onChange}
+                keyboardType="email-address"
                 errorMessage={errors.email?.message}
+                placeholder="E-mail"
+                value={value}
               />
             )}
           />
@@ -156,11 +155,11 @@ export function SignUp() {
             control={control}
             render={({ field: { value, onChange } }) => (
               <Input
-                onChangeText={onChange}
-                value={value}
-                placeholder="Senha"
                 secureTextEntry
+                onChangeText={onChange}
                 errorMessage={errors.password?.message}
+                placeholder="Senha"
+                value={value}
               />
             )}
           />
@@ -170,13 +169,13 @@ export function SignUp() {
             control={control}
             render={({ field: { value, onChange } }) => (
               <Input
-                onChangeText={onChange}
-                value={value}
-                placeholder="Confirmar senha"
                 secureTextEntry
                 onSubmitEditing={handleSubmit(handleSignUp)}
-                returnKeyType="send"
                 errorMessage={errors.password_confirm?.message}
+                onChangeText={onChange}
+                placeholder="Confirmar senha"
+                returnKeyType="send"
+                value={value}
               />
             )}
           />
@@ -191,8 +190,8 @@ export function SignUp() {
         <Button
           title={'Voltar para o login'}
           variant={'outline'}
-          mt={12}
           onPress={handleReturnSignIn}
+          mt={12}
         />
       </VStack>
     </ScrollView>

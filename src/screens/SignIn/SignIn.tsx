@@ -36,8 +36,8 @@ const signInSchema = yup.object({
 });
 
 export function SignIn() {
-  const { signIn } = useAuth();
   const toast = useToast();
+  const { signIn } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
   const navigation = useNavigation<AuthNavigatorRoutesProps>();
@@ -83,10 +83,10 @@ export function SignIn() {
       showsHorizontalScrollIndicator={false}>
       <VStack flex={1} px={10} pb={16}>
         <Image
-          source={BackgroundImage}
           defaultSource={BackgroundImage}
           resizeMode="contain"
           position={'absolute'}
+          source={BackgroundImage}
           alt="Imagem de fundo de pessoas fazendo bicicleta na academia"
         />
 
@@ -100,10 +100,10 @@ export function SignIn() {
 
         <Center>
           <Heading
-            color={'gray.100'}
+            fontFamily={'heading'}
             fontSize={'xl'}
-            mb={6}
-            fontFamily={'heading'}>
+            color={'gray.100'}
+            mb={6}>
             Acesse sua conta
           </Heading>
 
@@ -112,12 +112,12 @@ export function SignIn() {
             control={control}
             render={({ field: { value, onChange } }) => (
               <Input
-                placeholder="E-mail"
-                keyboardType="email-address"
                 autoCapitalize="none"
-                value={value}
+                keyboardType="email-address"
                 onChangeText={onChange}
                 errorMessage={errors.email?.message}
+                placeholder="E-mail"
+                value={value}
               />
             )}
           />
@@ -127,19 +127,19 @@ export function SignIn() {
             control={control}
             render={({ field: { value, onChange } }) => (
               <Input
-                placeholder="Senha"
                 secureTextEntry
-                value={value}
                 onChangeText={onChange}
+                placeholder="Senha"
                 errorMessage={errors.password?.message}
+                value={value}
               />
             )}
           />
 
           <Button
-            isLoading={isLoading}
             title={'Acessar'}
             onPress={handleSubmit(handleSignIn)}
+            isLoading={isLoading}
           />
         </Center>
 
@@ -150,9 +150,9 @@ export function SignIn() {
         </Center>
 
         <Button
-          title={'Criar conta'}
           variant={'outline'}
           onPress={handleNewAccount}
+          title={'Criar conta'}
         />
       </VStack>
     </ScrollView>

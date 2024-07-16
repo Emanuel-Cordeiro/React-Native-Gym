@@ -16,12 +16,12 @@ import Bodysvg from '../../assets/images/body.svg';
 import SeriesSvg from '../../assets/images/series.svg';
 import RepetitionsSvg from '../../assets/images/repetitions.svg';
 
+import { api } from '../../services/api';
+import { AppError } from '../../utils/AppError';
+import { ExerciseDTO } from '../../dto/ExerciseDTO';
 import { AppNavigatorRoutesProps } from '../../routes';
 
 import { Button } from '../../components/Button/Button';
-import { AppError } from '../../utils/AppError';
-import { api } from '../../services/api';
-import { ExerciseDTO } from '../../dto/ExerciseDTO';
 import { Loading } from '../../components/Loading/Loading';
 
 type RouteParamsProps = {
@@ -31,9 +31,11 @@ type RouteParamsProps = {
 export function Exercises() {
   const route = useRoute();
   const toast = useToast();
+
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitingRegister, setIsSubmitingRegister] = useState(false);
   const [exercise, setExercise] = useState<ExerciseDTO>({} as ExerciseDTO);
+
   const navigation = useNavigation<AppNavigatorRoutesProps>();
 
   const { exerciseId } = route.params as RouteParamsProps;
@@ -45,8 +47,9 @@ export function Exercises() {
   async function fetchExerciseDetails() {
     try {
       setIsLoading(true);
+
       const response = await api.get(`/exercises/${exerciseId}`);
-      console.log(response);
+
       setExercise(response.data);
     } catch (error) {
       const isAppError = error instanceof AppError;
@@ -65,12 +68,12 @@ export function Exercises() {
     try {
       setIsSubmitingRegister(true);
 
-      await api.post('/history/', { exercise_id: exerciseId });
+      await api.post('/history', { exercise_id: exerciseId });
 
       toast.show({
         title: 'Exercício registrado com sucesso.',
-        placement: 'top',
         bgColor: 'green.500',
+        placement: 'top',
       });
 
       navigation.navigate('history');
@@ -160,8 +163,8 @@ export function Exercises() {
 
               <Button
                 title="Marcar como realizado"
-                onPress={handleExerciseHistoryRegister}
                 isLoading={isSubmitingRegister}
+                onPress={handleExerciseHistoryRegister}
               />
             </Box>
           </VStack>

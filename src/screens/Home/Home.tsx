@@ -13,12 +13,13 @@ import { Group } from '../../components/Group/Group';
 import { Loading } from '../../components/Loading/Loading';
 import { HomeHeader } from '../../components/HomeHeader/HomeHeader';
 import { ExerciseCard } from '../../components/ExerciseCard/ExerciseCard';
+import { ExerciseDTO } from '../../dto/ExerciseDTO';
 
 export function Home() {
   const toast = useToast();
   const [groups, setGroups] = useState<string[]>([]);
-  const [exercises, setExercises] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [exercises, setExercises] = useState<ExerciseDTO[]>([]);
   const [groupSelected, setGroupSelected] = useState('antebraço');
 
   const navigation = useNavigation<AppNavigatorRoutesProps>();
@@ -114,7 +115,7 @@ export function Home() {
 
           <FlatList
             data={exercises}
-            keyExtractor={exercise => exercise.id}
+            keyExtractor={item => item.id}
             renderItem={({ item }) => (
               <ExerciseCard
                 onPress={() => handleOpenExerciseDetails(item.id)}

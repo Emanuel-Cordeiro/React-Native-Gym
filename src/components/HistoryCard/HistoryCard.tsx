@@ -1,5 +1,6 @@
 import React from 'react';
 import { Heading, HStack, Text, VStack } from 'native-base';
+
 import { HistoryDTO } from '../../dto/HistoryDTO';
 
 type Props = {
@@ -20,10 +21,10 @@ export function HistoryCard({ data }: Props) {
       <VStack mr={5} flex={1}>
         <Heading
           textTransform={'capitalize'}
-          color={'white'}
-          fontSize={'md'}
+          numberOfLines={1}
           fontFamily={'heading'}
-          numberOfLines={1}>
+          fontSize={'md'}
+          color={'white'}>
           {data.group}
         </Heading>
 

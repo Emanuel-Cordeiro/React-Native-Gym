@@ -1,6 +1,6 @@
 import React from 'react';
-import { Platform } from 'react-native';
 import { useTheme } from 'native-base';
+import { Platform } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import HomeSvg from '../../assets/images/home.svg';
