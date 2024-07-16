@@ -27,7 +27,7 @@ export function ExerciseCard({ data, ...rest }: Props) {
           source={{
             uri: `${api.defaults.baseURL}/exercise/thumb/${data.thumb}`,
           }}
-          alt="Remada unilateral"
+          alt="Imagem do exercício"
           resizeMode="cover"
           rounded={'md'}
           w={16}

@@ -102,7 +102,7 @@ export function SignUp() {
           resizeMode="contain"
           position={'absolute'}
           source={BackgroundImage}
-          alt="Imagem de fundo de pessoas fazendo bicicleta na academia"
+          alt="Imagem de fundo de pessoas se exercitando"
         />
 
         <Center my={24}>
