@@ -72,7 +72,7 @@ export function SignUp() {
 
     try {
       setIsLoading(true);
-      console.log(body);
+
       await api.post('/users', body);
 
       await signIn(data.email, data.password);

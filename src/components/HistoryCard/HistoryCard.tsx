@@ -1,7 +1,12 @@
 import React from 'react';
 import { Heading, HStack, Text, VStack } from 'native-base';
+import { HistoryDTO } from '../../dto/HistoryDTO';
 
-export function HistoryCard() {
+type Props = {
+  data: HistoryDTO;
+};
+
+export function HistoryCard({ data }: Props) {
   return (
     <HStack
       justifyContent={'space-between'}
@@ -19,16 +24,16 @@ export function HistoryCard() {
           fontSize={'md'}
           fontFamily={'heading'}
           numberOfLines={1}>
-          Costas
+          {data.group}
         </Heading>
 
         <Text color={'gray.100'} fontSize={'lg'} numberOfLines={1}>
-          Puxada Frontal
+          {data.name}
         </Text>
       </VStack>
 
       <Text color={'gray.300'} fontSize={'md'}>
-        08:56
+        {data.hour}
       </Text>
     </HStack>
   );

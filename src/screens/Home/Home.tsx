@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, Heading, HStack, Text, useToast, VStack } from 'native-base';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
@@ -15,10 +16,10 @@ import { ExerciseCard } from '../../components/ExerciseCard/ExerciseCard';
 
 export function Home() {
   const toast = useToast();
-  const [group, setGroups] = useState<string[]>([]);
+  const [groups, setGroups] = useState<string[]>([]);
   const [exercises, setExercises] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [groupSelected, setGroupSelected] = useState('costas');
+  const [groupSelected, setGroupSelected] = useState('antebraço');
 
   const navigation = useNavigation<AppNavigatorRoutesProps>();
 
@@ -48,7 +49,7 @@ export function Home() {
 
   useEffect(() => {
     fetchGroups();
-  });
+  }, []);
 
   async function fetchExercisesByGroup() {
     try {
@@ -69,7 +70,6 @@ export function Home() {
   useFocusEffect(
     useCallback(() => {
       fetchExercisesByGroup();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [groupSelected]),
   );
 
@@ -78,7 +78,7 @@ export function Home() {
       <HomeHeader />
 
       <FlatList
-        data={group}
+        data={groups}
         keyExtractor={item => item}
         showsHorizontalScrollIndicator={false}
         horizontal
@@ -114,7 +114,7 @@ export function Home() {
 
           <FlatList
             data={exercises}
-            keyExtractor={exercise => exercise}
+            keyExtractor={exercise => exercise.id}
             renderItem={({ item }) => (
               <ExerciseCard
                 onPress={() => handleOpenExerciseDetails(item.id)}
