@@ -82,19 +82,52 @@ export function Profile() {
     setIsPhotoLoading(true);
 
     try {
-      await ImagePicker.launchImageLibrary({ mediaType: 'mixed' }, response => {
-        let uri = '';
+      await ImagePicker.launchImageLibrary(
+        { mediaType: 'mixed' },
+        async response => {
+          let uri = '';
+          let type;
+          let fileExtension;
 
-        if (response?.assets) {
-          uri = response?.assets[0].uri ?? '';
-        }
+          if (response?.assets) {
+            uri = response?.assets[0].uri ?? '';
+            type = response?.assets[0].type ?? '';
+            fileExtension = uri.split('.').pop();
+          }
 
-        return setUserPhoto(uri);
-      });
+          const photoFile = {
+            name: `${user.name}.${fileExtension}`.toLocaleLowerCase(),
+            uri,
+            type: `${type}/${fileExtension}`,
+          };
+
+          const userPhotoUploadForm = new FormData();
+
+          userPhotoUploadForm.append('avatar', photoFile);
+
+          const avatarUpdatedResponse = await api.patch(
+            '/users/avatar',
+            userPhotoUploadForm,
+            {
+              headers: {
+                'Content-Type': 'multipart/formdata',
+              },
+            },
+          );
+
+          const userUpdated = user;
+
+          userUpdated.avatar = avatarUpdatedResponse.data.avatar;
+
+          updateUserProfile(userUpdated);
+
+          return setUserPhoto(uri);
+        },
+      );
     } catch (error) {
       Toast.show({ title: 'Erro ao carregar imagem \n' + error });
     } finally {
-      setLoading(false);
+      setIsPhotoLoading(false);
     }
   }
 
