@@ -3,8 +3,8 @@ import { NativeBaseProvider } from 'native-base';
 import { StatusBar, View, useColorScheme } from 'react-native';
 
 import { THEME } from './src/theme';
-import { Loading } from './src/components/Loading/Loading';
 import { Routes } from './src/routes';
+import { Loading } from './src/components/Loading/Loading';
 import { AuthContextProvider } from './src/contexts/AuthContext';
 
 const App = () => {

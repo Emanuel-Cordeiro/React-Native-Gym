@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useState } from 'react';
-import { FlatList, Heading, HStack, Text, useToast, VStack } from 'native-base';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { FlatList, Heading, HStack, Text, useToast, VStack } from 'native-base';
 
 import { AppNavigatorRoutesProps } from '../../routes';
 
@@ -9,11 +9,12 @@ import { api } from '../../services/api';
 
 import { AppError } from '../../utils/AppError';
 
+import { ExerciseDTO } from '../../dto/ExerciseDTO';
+
 import { Group } from '../../components/Group/Group';
 import { Loading } from '../../components/Loading/Loading';
 import { HomeHeader } from '../../components/HomeHeader/HomeHeader';
 import { ExerciseCard } from '../../components/ExerciseCard/ExerciseCard';
-import { ExerciseDTO } from '../../dto/ExerciseDTO';
 
 export function Home() {
   const toast = useToast();
@@ -85,16 +86,18 @@ export function Home() {
         horizontal
         // eslint-disable-next-line react-native/no-inline-styles
         _contentContainerStyle={{ px: 8 }}
-        my={10}
         minH={10}
         maxH={10}
+        my={10}
         renderItem={({ item }) => (
           <Group
             name={item}
             isActive={
               groupSelected.toLocaleUpperCase() === item.toLocaleUpperCase()
             }
-            onPress={() => setGroupSelected(item)}
+            onPress={() => {
+              setGroupSelected(item);
+            }}
           />
         )}
       />

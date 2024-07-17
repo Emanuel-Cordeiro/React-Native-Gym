@@ -38,14 +38,19 @@ export function ExerciseCard({ data, ...rest }: Props) {
         <VStack flex={1}>
           <Heading
             numberOfLines={1}
-            w={64}
+            w={56}
             color={'white'}
             fontSize={'lg'}
             fontFamily={'heading'}>
             {data.name}
           </Heading>
 
-          <Text color={'gray.200'} fontSize={'sm'} mt={1} numberOfLines={2}>
+          <Text
+            color={'gray.200'}
+            fontSize={'sm'}
+            mt={1}
+            w={64}
+            numberOfLines={2}>
             {data.series} séries x {data.repetitions} repetições
           </Text>
         </VStack>
